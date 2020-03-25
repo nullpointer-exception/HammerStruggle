@@ -6,6 +6,9 @@
 #include "GameFramework/Pawn.h"
 #include "HSPlayer.generated.h"
 
+class USkeletalMeshComponent;
+class UArrowComponent;
+
 UCLASS()
 class HAMMERSTRUGGLE_API AHSPlayer : public APawn
 {
@@ -21,7 +24,11 @@ class HAMMERSTRUGGLE_API AHSPlayer : public APawn
 		class UCapsuleComponent* Capsule;
 
 	UPROPERTY(VisibleAnywhere, BlueprintReadWrite, Category = "Player", meta = (AllowPrivateAccess = "true"))
-		class UCharacterMovementComponent* CharacterMovement;
+		USkeletalMeshComponent* Mesh;
+
+	UPROPERTY()
+		UArrowComponent* ArrowComponent;
+
 public:
 	// Sets default values for this pawn's properties
 	AHSPlayer();
@@ -42,7 +49,8 @@ public:
 	FORCEINLINE class UCameraComponent* GetTopDownCameraComponent() const { return TopDownCameraComponent; }
 	/** Returns CameraBoom subobject **/
 	FORCEINLINE class USpringArmComponent* GetCameraBoom() const { return CameraBoom; }
-
+	
 	FORCEINLINE class UCapsuleComponent* GetCapsule() const { return Capsule; }
-	FORCEINLINE class UCharacterMovementComponent* GetCharacterMovement() const { return CharacterMovement; }
+	FORCEINLINE class USkeletalMeshComponent* GetMesh() const { return Mesh; }
+	class UArrowComponent* GetArrowComponent() const { return ArrowComponent; }
 };
