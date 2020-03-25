@@ -3,7 +3,7 @@
   <ItemGroup>
     <None Include="..\..\HammerStruggle.uproject" />
     <Filter Include="Source">
-      <UniqueIdentifier>{21159A1C-E843-4FBF-BC08-EC4CC32AFD9B}</UniqueIdentifier>
+      <UniqueIdentifier>{CA7DC085-1905-4CB6-819F-9AFE54F4A2B3}</UniqueIdentifier>
     </Filter>
     <None Include="..\..\Source\HammerStruggle.Target.cs">
       <Filter>Source</Filter>
@@ -12,7 +12,7 @@
       <Filter>Source</Filter>
     </None>
     <Filter Include="Config">
-      <UniqueIdentifier>{5C511B1A-4069-4013-A533-93B3CA9B814E}</UniqueIdentifier>
+      <UniqueIdentifier>{F58DBD2C-777A-4C99-85BB-26868B3B026B}</UniqueIdentifier>
     </Filter>
     <None Include="..\..\Config\DefaultEditor.ini">
       <Filter>Config</Filter>
@@ -30,7 +30,7 @@
       <Filter>Config</Filter>
     </None>
     <Filter Include="Source\HammerStruggle">
-      <UniqueIdentifier>{7EA21E0C-DC16-4EC8-AB06-88AC7E077FF6}</UniqueIdentifier>
+      <UniqueIdentifier>{E70FD09B-3AF8-4A41-8D4C-D1D61A5D8958}</UniqueIdentifier>
     </Filter>
     <None Include="..\..\Source\HammerStruggle\HammerStruggle.Build.cs">
       <Filter>Source\HammerStruggle</Filter>
@@ -51,6 +51,12 @@
       <Filter>Source\HammerStruggle</Filter>
     </ClCompile>
     <ClInclude Include="..\..\Source\HammerStruggle\HammerStruggleGameMode.h">
+      <Filter>Source\HammerStruggle</Filter>
+    </ClInclude>
+    <ClCompile Include="..\..\Source\HammerStruggle\HSPlayer.cpp">
+      <Filter>Source\HammerStruggle</Filter>
+    </ClCompile>
+    <ClInclude Include="..\..\Source\HammerStruggle\HSPlayer.h">
       <Filter>Source\HammerStruggle</Filter>
     </ClInclude>
   </ItemGroup>

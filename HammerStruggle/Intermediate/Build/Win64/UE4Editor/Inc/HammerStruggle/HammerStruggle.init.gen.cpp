@@ -21,8 +21,8 @@ void EmptyLinkFunctionForGeneratedCodeHammerStruggle_init() {}
 				nullptr,
 				0,
 				PKG_CompiledIn | 0x00000000,
-				0xCF9CD7A4,
-				0x2D9AECF0,
+				0x72591AA5,
+				0x458CBC50,
 				METADATA_PARAMS(nullptr, 0)
 			};
 			UE4CodeGen_Private::ConstructUPackage(ReturnPackage, PackageParams);

@@ -1,2 +1,2 @@
-C:\SAE\Unreal\HammerStruggle\HammerStruggle\Intermediate\Build\Win64\UE4Editor\Development\HammerStruggle\Definitions.HammerStruggle.h
-C:\SAE\Unreal\HammerStruggle\HammerStruggle\Source\HammerStruggle\HammerStruggle.h
+C:\SAE\Unreal\HammerStruggle\HammerStruggle\HammerStruggle\Intermediate\Build\Win64\UE4Editor\Development\HammerStruggle\Definitions.HammerStruggle.h
+C:\SAE\Unreal\HammerStruggle\HammerStruggle\HammerStruggle\Source\HammerStruggle\HammerStruggle.h
