@@ -5,7 +5,6 @@
 #include "Camera/CameraComponent.h"
 #include "Components/CapsuleComponent.h"
 #include "Components/InputComponent.h"
-#include "GameFramework/CharacterMovementComponent.h"
 #include "GameFramework/Controller.h"
 #include "GameFramework/SpringArmComponent.h"
 
@@ -14,17 +13,18 @@ AHSPlayer::AHSPlayer()
 {
 	Capsule = CreateDefaultSubobject<UCapsuleComponent>(TEXT("Capsule"));
 	SetRootComponent(Capsule);
+	Capsule->InitCapsuleSize(42.f, 96.0f);
+
+	//ArrowComponent = CreateDefaultSubobject<UArrowComponent>(TEXT("Arrow"));
+	//ArrowComponent->SetupAttachment(Capsule);
+
+	Mesh = CreateDefaultSubobject<USkeletalMeshComponent>(TEXT("Mesh"));
+	Mesh->SetupAttachment(Capsule);
 
 	// Don't rotate character to camera direction
 	bUseControllerRotationPitch = false;
 	bUseControllerRotationYaw = false;
 	bUseControllerRotationRoll = false;
-
-	// Configure character movement
-	//CharacterMovement->bOrientRotationToMovement = true; // Rotate character to moving direction
-	//CharacterMovement->RotationRate = FRotator(0.f, 640.f, 0.f);
-	//CharacterMovement->JumpZVelocity = 600.f;
-	//CharacterMovement->AirControl = 0.2f;
 
 	CameraBoom = CreateDefaultSubobject<USpringArmComponent>(TEXT("CameraBoom"));
 	CameraBoom->SetupAttachment(Capsule);
