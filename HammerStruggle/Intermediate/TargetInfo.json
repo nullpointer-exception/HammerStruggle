@@ -2,12 +2,12 @@
 	"Targets": [
 		{
 			"Name": "HammerStruggle",
-			"Path": "C:\\SAE\\Unreal\\HammerStruggle\\HammerStruggle\\HammerStruggle\\Source\\HammerStruggle.Target.cs",
+			"Path": "D:\\SAE Projekte\\HammerStruggle\\HammerStruggle\\HammerStruggle\\Source\\HammerStruggle.Target.cs",
 			"Type": "Game"
 		},
 		{
 			"Name": "HammerStruggleEditor",
-			"Path": "C:\\SAE\\Unreal\\HammerStruggle\\HammerStruggle\\HammerStruggle\\Source\\HammerStruggleEditor.Target.cs",
+			"Path": "D:\\SAE Projekte\\HammerStruggle\\HammerStruggle\\HammerStruggle\\Source\\HammerStruggleEditor.Target.cs",
 			"Type": "Editor"
 		}
 	]
