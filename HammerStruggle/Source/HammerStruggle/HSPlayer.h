@@ -37,8 +37,70 @@ protected:
 	/** Called for forwards/backward input */
 	void MoveForward(float Value);
 
-	/** Called for side to side input */
-	void MoveRight(float Value);
+	UPROPERTY(BlueprintReadWrite, VisibleDefaultsOnly, Category = "Player")
+		/// <summary>
+		/// spring arm component for fixed camera distance
+		/// </summary>
+		USpringArmComponent* CameraBoom = nullptr;
+
+	UPROPERTY(BlueprintReadWrite, VisibleDefaultsOnly, Category = "Player")
+		/// <summary>
+		/// camera component
+		/// </summary>
+		UCameraComponent* Camera = nullptr;
+#pragma endregion
+
+#pragma region UFUNCTION
+	UFUNCTION(BlueprintImplementableEvent, Category = "Player")
+		/// <summary>
+		/// start melee attack animation
+		/// </summary>
+		void StartMelee();
+
+	UFUNCTION(BlueprintCallable, Category = "Player")
+		/// <summary>
+		/// rotate capusle
+		/// </summary>
+		/// <param name="LeftRight">rotation left and right</param>
+		/// <param name="UpDown">rotation up and down</param>
+		void Rotate(float LeftRight);
+
+	UFUNCTION(BlueprintCallable, Category = "Player")
+		/// <summary>
+		/// move capsule
+		/// </summary>
+		/// <param name="LeftRight">left and right movement</param>
+		/// <param name="ForwardBack">forward and back movement</param>
+		void Move(float LeftRight, float ForwardBack);
+
+	UFUNCTION(BlueprintCallable, Category = "Player")
+		/// <summary>
+		/// attack
+		/// </summary>
+		void Attack();
+
+	UFUNCTION(BlueprintCallable, Category = "Player")
+		/// <summary>
+		/// weapon collide
+		/// </summary>
+		/// <param name="OtherActor">other actor that collides with the weapon</param>
+		void Collide(AActor* OtherActor);
+
+	UFUNCTION(BlueprintCallable, Category = "Player")
+		/// <summary>
+		/// stop melee animation
+		/// </summary>
+		void StopMelee();
+
+#pragma endregion
+
+#pragma region public function
+	/// <summary>
+	/// decrease health by damage
+	/// </summary>
+	/// <param name="_damage">damage</param>
+	void DecreaseHealth(int _damage);
+#pragma endregion
 
 protected:
 	// Called to bind functionality to input
