@@ -3,16 +3,15 @@
 
 #include "HSPlayer.h"
 #include "Camera/CameraComponent.h"
-#include "Components/CapsuleComponent.h"
-#include "Components/InputComponent.h"
-#include "GameFramework/Controller.h"
 #include "GameFramework/SpringArmComponent.h"
+#include "Kismet/GameplayStatics.h"
+#pragma endregion
 
 // Sets default values
 AHSPlayer::AHSPlayer()
 {
 	Capsule = CreateDefaultSubobject<UCapsuleComponent>(TEXT("Capsule"));
-	SetRootComponent(Capsule);
+	Capsule->SetupAttachment(pRoot);
 	Capsule->InitCapsuleSize(42.f, 96.0f);
 
 	//ArrowComponent = CreateDefaultSubobject<UArrowComponent>(TEXT("Arrow"));
@@ -26,19 +25,24 @@ AHSPlayer::AHSPlayer()
 	bUseControllerRotationYaw = false;
 	bUseControllerRotationRoll = false;
 
+	// create default scene component and attach to capsule
+	CameraRoot = CreateDefaultSubobject<USceneComponent>(TEXT("CameraRoot"));
+	CameraRoot->SetupAttachment(Capsule);
+
+	// create default camera component and attach to camera boom
 	CameraBoom = CreateDefaultSubobject<USpringArmComponent>(TEXT("CameraBoom"));
-	CameraBoom->SetupAttachment(Capsule);
+	CameraBoom->SetupAttachment(CameraRoot);
 	CameraBoom->SetUsingAbsoluteRotation(true); // Don't want arm to rotate when character does
-	CameraBoom->TargetArmLength = 800.f;
-	CameraBoom->SetRelativeRotation(FRotator(-60.f, 0.f, 0.f));
+	CameraBoom->TargetArmLength = 600.f;
+	CameraBoom->SetRelativeRotation(FRotator(-30.f, 0.f, 0.f));
 	CameraBoom->bDoCollisionTest = false; // Don't want to pull camera in when it collides with level
 
-	TopDownCameraComponent = CreateDefaultSubobject<UCameraComponent>(TEXT("TopDownCamera"));
-	TopDownCameraComponent->SetupAttachment(CameraBoom, USpringArmComponent::SocketName);
-	TopDownCameraComponent->bUsePawnControlRotation = false; // Camera does not rotate relative to arm
+	// create default camera component and attach to camera boom
+	Camera = CreateDefaultSubobject<UCameraComponent>(TEXT("Camera"));
+	Camera->SetupAttachment(CameraBoom);
 
- 	// Set this pawn to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
-	PrimaryActorTick.bCanEverTick = true;
+	// replicate player
+	bReplicates = true;
 
 }
 
@@ -47,6 +51,19 @@ void AHSPlayer::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent)
 {
 	Super::SetupPlayerInputComponent(PlayerInputComponent);
 
+#pragma region UFUNCTION
+// rotate capusle
+void AHSPlayer::Rotate(float LeftRight)
+{
+	// add rotation left and right of capsule
+	Capsule->AddWorldRotation(FRotator(0.0f, LeftRight * RotationSpeed * GetWorld()->GetDeltaSeconds(), 0.0f));
+
+	// calculate angle for up and down angle
+	//float angle = CameraRoot->GetComponentRotation().Pitch + UpDown * RotationSpeed * GetWorld()->GetDeltaSeconds();
+	//angle = FMath::Max(-45.0f, FMath::Min(45.0f, angle));
+	//
+	//// set world rotation of camera root by angle
+	//CameraRoot->SetWorldRotation(FRotator(angle, CameraRoot->GetComponentRotation().Yaw, 0.0f));
 }
 
 void AHSPlayer::MoveForward(float Value)
