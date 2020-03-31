@@ -1,177 +1,56 @@
 // Fill out your copyright notice in the Description page of Project Settings.
+
 #pragma once
 
-#pragma region UE4 include
 #include "CoreMinimal.h"
 #include "GameFramework/Pawn.h"
-#pragma endregion
-
-#pragma region project include
 #include "HSPlayer.generated.h"
-#pragma endregion
 
-#pragma region forward decleration
-class UCapsuleComponent;
-class UCameraComponent;
-class USpringArmComponent;
-#pragma endregion
+class USkeletalMeshComponent;
+class UArrowComponent;
 
 UCLASS()
-/// <summary>
-/// player pawn class
-/// </summary>
 class HAMMERSTRUGGLE_API AHSPlayer : public APawn
 {
 	GENERATED_BODY()
 
+	UPROPERTY(VisibleAnywhere, BlueprintReadWrite, Category = "Camera", meta = (AllowPrivateAccess = "true"))
+		class UCameraComponent* TopDownCameraComponent;
+
+	UPROPERTY(VisibleAnywhere, BlueprintReadWrite, Category = "Camera", meta = (AllowPrivateAccess = "true"))
+		class USpringArmComponent* CameraBoom;
+
+	UPROPERTY(VisibleAnywhere, BlueprintReadWrite, Category = "Player", meta = (AllowPrivateAccess = "true"))
+		class UCapsuleComponent* Capsule;
+
+	UPROPERTY(VisibleAnywhere, BlueprintReadWrite, Category = "Player", meta = (AllowPrivateAccess = "true"))
+		USkeletalMeshComponent* Mesh;
+
+	UPROPERTY()
+		UArrowComponent* ArrowComponent;
+
 public:
-#pragma region constructor
-	/// <summary>
-	/// constructor
-	/// </summary>
+	// Sets default values for this pawn's properties
 	AHSPlayer();
-#pragma endregion
-
-#pragma region public override function
-	/// <summary>
-	/// update every frame	
-	/// </summary>
-	/// <param name="DeltaTime">time since last frame</param>
-	virtual void Tick(float DeltaTime) override;
-#pragma endregion
-
-#pragma region UPROPERTY
-	UPROPERTY(BlueprintReadWrite, EditDefaultsOnly, Category = "Player")
-		/// <summary>
-		/// rotation speed in angle per second
-		/// </summary>
-		float RotationSpeed = 180.0f;
-
-	UPROPERTY(BlueprintReadWrite, EditDefaultsOnly, Category = "Player")
-		/// <summary>
-		/// movement speed in cm per second
-		/// </summary>
-		float MovementSpeed = 300.0f;
-
-	UPROPERTY(BlueprintReadWrite, VisibleDefaultsOnly, Category = "Player")
-		/// <summary>
-		/// capsule component for collision detection
-		/// </summary>
-		UCapsuleComponent* Capsule = nullptr;
-
-	UPROPERTY(BlueprintReadWrite, VisibleAnywhere, Category = "Player")
-		/// <summary>
-		/// skeltal mesh component for visuals
-		/// </summary>
-		USkeletalMeshComponent* Mesh = nullptr;
-
-	UPROPERTY(BlueprintReadWrite, VisibleDefaultsOnly, Category = "Player")
-		/// <summary>
-		/// camera root scene component for camera rotation
-		/// </summary>
-		USceneComponent* CameraRoot = nullptr;
-
-	//UPROPERTY(BlueprintReadWrite, VisibleDefaultsOnly, Category = "Player")
-	//	/// <summary>
-	//	/// spring arm component for camera rotation
-	//	/// </summary>
-	//	USpringArmComponent* CameraBoom = nullptr;
-
-	UPROPERTY(BlueprintReadWrite, VisibleDefaultsOnly, Category = "Player")
-		/// <summary>
-		/// camera component
-		/// </summary>
-		UCameraComponent* Camera = nullptr;
-
-	UPROPERTY(BlueprintReadWrite, VisibleDefaultsOnly, Category = "Player")
-		/// <summary>
-		/// scene component for spawning bullets
-		/// </summary>
-		USceneComponent* SpawnPoint = nullptr;
-#pragma endregion
-
-#pragma region UFUNCTION
-	UFUNCTION(BlueprintImplementableEvent, Category = "Player")
-		/// <summary>
-		/// start melee attack animation
-		/// </summary>
-		void StartMelee();
-
-	UFUNCTION(BlueprintCallable, Category = "Player")
-		/// <summary>
-		/// rotate capusle
-		/// </summary>
-		/// <param name="LeftRight">rotation left and right</param>
-		/// <param name="UpDown">rotation up and down</param>
-		void Rotate(float LeftRight, float UpDown);
-
-	UFUNCTION(BlueprintCallable, Category = "Player")
-		/// <summary>
-		/// move capsule
-		/// </summary>
-		/// <param name="LeftRight">left and right movement</param>
-		/// <param name="ForwardBack">forward and back movement</param>
-		void Move(float LeftRight, float ForwardBack);
-
-	UFUNCTION(BlueprintCallable, Category = "Player")
-		/// <summary>
-		/// attack
-		/// </summary>
-		void Attack();
-
-	UFUNCTION(BlueprintCallable, Category = "Player")
-		/// <summary>
-		/// weapon collide
-		/// </summary>
-		/// <param name="OtherActor">other actor that collides with the weapon</param>
-		void Collide(AActor* OtherActor);
-
-	UFUNCTION(BlueprintCallable, Category = "Player")
-		/// <summary>
-		/// stop melee animation
-		/// </summary>
-		void StopMelee();
-
-#pragma endregion
-
-#pragma region public function
-	/// <summary>
-	/// decrease health by damage
-	/// </summary>
-	/// <param name="_damage">damage</param>
-	void DecreaseHealth(int _damage);
-#pragma endregion
 
 protected:
-#pragma region protected override function
-	/// <summary>
-	/// called at begin play
-	/// </summary>
-	virtual void BeginPlay() override;
-#pragma endregion
+	/** Called for forwards/backward input */
+	void MoveForward(float Value);
 
-private:
-#pragma region private primitive variable
-	/// <summary>
-	/// melee attack hit an enemy
-	/// </summary>
-	bool m_meleeHit = false;
+	/** Called for side to side input */
+	void MoveRight(float Value);
 
-	/// /// <summary>
-	/// current weapon index
-	/// </summary>
-	int m_weapon = 0;
+protected:
+	// Called to bind functionality to input
+	virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
 
-	/// <summary>
-	/// angle to rotate remote player to
-	/// </summary>
-	float m_angleToRotateTo = 0.0f;
-#pragma endregion
-
-#pragma region private variable
-	/// <summary>
-	/// location to move remote player to
-	/// </summary>
-	FVector m_locationToMoveTo = FVector();
-#pragma endregion
+public:
+	/** Returns TopDownCameraComponent subobject **/
+	FORCEINLINE class UCameraComponent* GetTopDownCameraComponent() const { return TopDownCameraComponent; }
+	/** Returns CameraBoom subobject **/
+	FORCEINLINE class USpringArmComponent* GetCameraBoom() const { return CameraBoom; }
+	
+	FORCEINLINE class UCapsuleComponent* GetCapsule() const { return Capsule; }
+	FORCEINLINE class USkeletalMeshComponent* GetMesh() const { return Mesh; }
+	class UArrowComponent* GetArrowComponent() const { return ArrowComponent; }
 };
