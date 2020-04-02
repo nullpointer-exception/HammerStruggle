@@ -1,8 +1,0 @@
-{
-	"SourceFiles": [
-		"C:\\SAE\\Unreal\\HammerStruggle\\HammerStruggle\\HammerStruggle\\Source\\HammerStruggle\\HammerStruggle.Build.cs",
-		"C:\\SAE\\Unreal\\HammerStruggle\\HammerStruggle\\HammerStruggle\\Source\\HammerStruggle.Target.cs",
-		"C:\\SAE\\Unreal\\HammerStruggle\\HammerStruggle\\HammerStruggle\\Source\\HammerStruggleEditor.Target.cs"
-	],
-	"EngineVersion": "4.24.3"
-}
