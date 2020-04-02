@@ -276,8 +276,6 @@
     <None Include="..\..\Source\HammerStruggle\HammerStruggle.Build.cs"/>
     <ClCompile Include="..\..\Source\HammerStruggle\HammerStruggle.cpp"/>
     <ClInclude Include="..\..\Source\HammerStruggle\HammerStruggle.h"/>
-    <ClCompile Include="..\..\Source\HammerStruggle\HammerStruggleCharacter.cpp"/>
-    <ClInclude Include="..\..\Source\HammerStruggle\HammerStruggleCharacter.h"/>
     <ClCompile Include="..\..\Source\HammerStruggle\HammerStruggleGameMode.cpp"/>
     <ClInclude Include="..\..\Source\HammerStruggle\HammerStruggleGameMode.h"/>
     <ClCompile Include="..\..\Source\HammerStruggle\HSPlayer.cpp"/>
