@@ -15,6 +15,7 @@
 class UCapsuleComponent;
 class UCameraComponent;
 class USpringArmComponent;
+class UArrowComponent;
 #pragma endregion
 
 UCLASS()
@@ -59,6 +60,12 @@ public:
 		/// capsule component for collision detection
 		/// </summary>
 		UCapsuleComponent* Capsule = nullptr;
+
+	UPROPERTY(BlueprintReadWrite, VisibleDefaultsOnly, Category = "Player")
+		/// <summary>
+		/// arrow component for movement direction
+		/// </summary>
+		UArrowComponent* MovementDirection = nullptr;
 
 	UPROPERTY(BlueprintReadWrite, VisibleAnywhere, Category = "Player")
 		/// <summary>
