@@ -30,7 +30,7 @@ AHSPlayer::AHSPlayer()
 	//Capsule->SetupAttachment(pRoot);
 	Capsule->InitCapsuleSize(42.f, 68.0f);
 
-	// create default static mesh component and attach to capsule
+	// create default skelatel mesh component and attach to capsule
 	Mesh = CreateDefaultSubobject<USkeletalMeshComponent>(TEXT("Mesh"));
 	Mesh->SetupAttachment(Capsule);
 	Mesh->SetIsReplicated(true);
@@ -39,6 +39,14 @@ AHSPlayer::AHSPlayer()
 	bUseControllerRotationPitch = false;
 	bUseControllerRotationYaw = false;
 	bUseControllerRotationRoll = false;
+
+	// create default instanced static mesh component and attach to mesh
+	Weapon = CreateDefaultSubobject<UInstancedStaticMeshComponent>(TEXT("WeaponInStanby"));
+	Weapon->SetupAttachment(Mesh);
+
+	// create default instanced static mesh component and attach to mesh
+	Shield = CreateDefaultSubobject<UInstancedStaticMeshComponent>(TEXT("ShieldInStanby"));
+	Shield->SetupAttachment(Mesh);
 
 	// create default arrow component and attach to capsule
 	MovementDirection = CreateDefaultSubobject<UArrowComponent>(TEXT("MovementDirection"));
