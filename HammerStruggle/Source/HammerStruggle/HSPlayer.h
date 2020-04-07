@@ -12,10 +12,12 @@
 #pragma endregion
 
 #pragma region forward decleration
+class USceneComponent;
 class UCapsuleComponent;
 class UCameraComponent;
 class USpringArmComponent;
 class UArrowComponent;
+class UInstancedStaticMeshComponent;
 #pragma endregion
 
 UCLASS()
@@ -53,7 +55,7 @@ public:
 		/// <summary>
 		/// movement speed in cm per second
 		/// </summary>
-		float MovementSpeed = 300.0f;
+		float MovementSpeed = 600.0f;
 
 	UPROPERTY(BlueprintReadWrite, VisibleDefaultsOnly, Category = "Player")
 		/// <summary>
@@ -73,6 +75,18 @@ public:
 		/// </summary>
 		USkeletalMeshComponent* Mesh = nullptr;
 
+	UPROPERTY(BlueprintReadWrite, VisibleAnywhere, Category = "Player")
+		/// <summary>
+		/// static mesh for weapon
+		/// </summary>
+		UInstancedStaticMeshComponent* Weapon = nullptr;
+
+	UPROPERTY(BlueprintReadWrite, VisibleAnywhere, Category = "Player")
+		/// <summary>
+		/// static mesh for shield
+		/// </summary>
+		UInstancedStaticMeshComponent* Shield = nullptr;
+
 	UPROPERTY(BlueprintReadWrite, VisibleDefaultsOnly, Category = "Player")
 		/// <summary>
 		/// camera root scene component for camera rotation
@@ -81,7 +95,7 @@ public:
 
 	UPROPERTY(BlueprintReadWrite, VisibleDefaultsOnly, Category = "Player")
 		/// <summary>
-		/// camera root scene component for camera rotation
+		/// camera root scene component for fixed camera distance
 		/// </summary>
 		USpringArmComponent* CameraBoom = nullptr;
 
@@ -104,7 +118,6 @@ public:
 		/// rotate capusle
 		/// </summary>
 		/// <param name="LeftRight">rotation left and right</param>
-		/// <param name="UpDown">rotation up and down</param>
 		void Rotate(float LeftRight);
 
 	UFUNCTION(BlueprintCallable, Category = "Player")
