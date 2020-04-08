@@ -7,6 +7,7 @@
 #pragma region UE4 include
 #include "Components/CapsuleComponent.h"
 #include "Components/SkeletalMeshComponent.h"
+#include "Components/SceneComponent.h"
 #include "Components/ArrowComponent.h"
 #include "Camera/CameraComponent.h"
 #include "GameFramework/SpringArmComponent.h"
@@ -40,13 +41,30 @@ AHSPlayer::AHSPlayer()
 	bUseControllerRotationYaw = false;
 	bUseControllerRotationRoll = false;
 
+	// create default scene component and attach to mesh bone
+	ContainerWeaponHand = CreateDefaultSubobject<USceneComponent>(TEXT("ContainerWeaponHand"));
+	ContainerWeaponHand->SetupAttachment(Mesh, "Sword");
+	//ContainerWeaponHand->AttachToComponent(Mesh, FAttachmentTransformRules::SnapToTargetNotIncludingScale, "Sword"); // Exeption Thrown (Unknown Error)
+
+	// create default scene component and attach to mesh bone
+	ContainerWeaponBelt = CreateDefaultSubobject<USceneComponent>(TEXT("ContainerWeaponBelt"));
+	ContainerWeaponBelt->SetupAttachment(Mesh, "SpineSocket");
+
 	// create default instanced static mesh component and attach to mesh
 	Weapon = CreateDefaultSubobject<UInstancedStaticMeshComponent>(TEXT("WeaponInStanby"));
-	Weapon->SetupAttachment(Mesh);
+	Weapon->SetupAttachment(ContainerWeaponBelt);
+
+	// create default scene component and attach to mesh bone
+	ContainerShieldHand = CreateDefaultSubobject<USceneComponent>(TEXT("ContainerShieldHand"));
+	ContainerShieldHand->SetupAttachment(Mesh, "ShieldSocket");
+
+	// create default scene component and attach to mesh bone
+	ContainerShieldBack = CreateDefaultSubobject<USceneComponent>(TEXT("ContainerShieldBack"));
+	ContainerShieldBack->SetupAttachment(Mesh, "Spine2Socket");
 
 	// create default instanced static mesh component and attach to mesh
 	Shield = CreateDefaultSubobject<UInstancedStaticMeshComponent>(TEXT("ShieldInStanby"));
-	Shield->SetupAttachment(Mesh);
+	Shield->SetupAttachment(ContainerShieldBack);
 
 	// create default arrow component and attach to capsule
 	MovementDirection = CreateDefaultSubobject<UArrowComponent>(TEXT("MovementDirection"));

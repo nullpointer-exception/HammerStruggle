@@ -77,6 +77,30 @@ public:
 
 	UPROPERTY(BlueprintReadWrite, VisibleAnywhere, Category = "Player")
 		/// <summary>
+		/// scene component for attchment
+		/// </summary>
+		USceneComponent* ContainerWeaponHand = nullptr;
+
+	UPROPERTY(BlueprintReadWrite, VisibleAnywhere, Category = "Player")
+		/// <summary>
+		/// scene component for attchment
+		/// </summary>
+		USceneComponent* ContainerWeaponBelt = nullptr;
+
+	UPROPERTY(BlueprintReadWrite, VisibleAnywhere, Category = "Player")
+		/// <summary>
+		/// scene component for attchment
+		/// </summary>
+		USceneComponent* ContainerShieldHand = nullptr;
+
+	UPROPERTY(BlueprintReadWrite, VisibleAnywhere, Category = "Player")
+		/// <summary>
+		/// scene component for attchment
+		/// </summary>
+		USceneComponent* ContainerShieldBack = nullptr;
+
+	UPROPERTY(BlueprintReadWrite, VisibleAnywhere, Category = "Player")
+		/// <summary>
 		/// static mesh for weapon
 		/// </summary>
 		UInstancedStaticMeshComponent* Weapon = nullptr;
