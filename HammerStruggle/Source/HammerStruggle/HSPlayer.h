@@ -154,6 +154,13 @@ public:
 
 	UFUNCTION(BlueprintCallable, Category = "Player")
 		/// <summary>
+		/// change weapon attachment
+		/// </summary>
+		/// <param name="IsBlacksmith">change if in blacksmith</param>
+		void ChangeAttachment(bool IsBlacksmith);
+
+	UFUNCTION(BlueprintCallable, Category = "Player")
+		/// <summary>
 		/// attack
 		/// </summary>
 		void Attack();
@@ -186,12 +193,5 @@ private:
 	/// melee attack hit an enemy
 	/// </summary>
 	bool m_meleeHit = false;
-#pragma endregion
-
-#pragma region private variable
-	/// <summary>
-	/// location to move remote player to
-	/// </summary>
-	FVector m_locationToMoveTo = FVector();
 #pragma endregion
 };

@@ -12,6 +12,7 @@
 #include "Camera/CameraComponent.h"
 #include "GameFramework/SpringArmComponent.h"
 #include "Kismet/GameplayStatics.h"
+#include "Kismet/KismetMathLibrary.h" 
 #pragma endregion
 
 #pragma region constructor
@@ -21,14 +22,9 @@ AHSPlayer::AHSPlayer()
 	// enable update every frame
 	PrimaryActorTick.bCanEverTick = true;
 
-	// create root default scene component and make root
-	//USceneComponent* pRoot = CreateDefaultSubobject<USceneComponent>(TEXT("Root"));
-	//RootComponent = pRoot;
-
-	// create default capsule component and attach to root
+	// create default capsule component and make root
 	Capsule = CreateDefaultSubobject<UCapsuleComponent>(TEXT("Capsule"));
 	RootComponent = Capsule;
-	//Capsule->SetupAttachment(pRoot);
 	Capsule->InitCapsuleSize(42.f, 68.0f);
 
 	// create default skelatel mesh component and attach to capsule
@@ -43,12 +39,11 @@ AHSPlayer::AHSPlayer()
 
 	// create default scene component and attach to mesh bone
 	ContainerWeaponHand = CreateDefaultSubobject<USceneComponent>(TEXT("ContainerWeaponHand"));
-	ContainerWeaponHand->SetupAttachment(Mesh, "Sword");
-	//ContainerWeaponHand->AttachToComponent(Mesh, FAttachmentTransformRules::SnapToTargetNotIncludingScale, "Sword"); // Exeption Thrown (Unknown Error)
+	ContainerWeaponHand->SetupAttachment(Mesh, "WeaponHand");
 
 	// create default scene component and attach to mesh bone
 	ContainerWeaponBelt = CreateDefaultSubobject<USceneComponent>(TEXT("ContainerWeaponBelt"));
-	ContainerWeaponBelt->SetupAttachment(Mesh, "SpineSocket");
+	ContainerWeaponBelt->SetupAttachment(Mesh, "WeaponBack");
 
 	// create default instanced static mesh component and attach to mesh
 	Weapon = CreateDefaultSubobject<UInstancedStaticMeshComponent>(TEXT("WeaponInStanby"));
@@ -56,11 +51,11 @@ AHSPlayer::AHSPlayer()
 
 	// create default scene component and attach to mesh bone
 	ContainerShieldHand = CreateDefaultSubobject<USceneComponent>(TEXT("ContainerShieldHand"));
-	ContainerShieldHand->SetupAttachment(Mesh, "ShieldSocket");
+	ContainerShieldHand->SetupAttachment(Mesh, "ShieldHand");
 
 	// create default scene component and attach to mesh bone
 	ContainerShieldBack = CreateDefaultSubobject<USceneComponent>(TEXT("ContainerShieldBack"));
-	ContainerShieldBack->SetupAttachment(Mesh, "Spine2Socket");
+	ContainerShieldBack->SetupAttachment(Mesh, "ShieldBack");
 
 	// create default instanced static mesh component and attach to mesh
 	Shield = CreateDefaultSubobject<UInstancedStaticMeshComponent>(TEXT("ShieldInStanby"));
@@ -119,6 +114,27 @@ void AHSPlayer::Move(float LeftRight, float ForwardBack)
 
 	// try to add world offset
 	Capsule->AddWorldOffset(movement, true);
+
+	// calculate rotation to rotate to by input 
+	FRotator rotation = UKismetMathLibrary::MakeRotFromXY(MovementDirection->GetForwardVector(),
+														  MovementDirection->GetRightVector());
+	// try to add world rotation
+	//Mesh->AddWorldRotation(rotation,true);
+}
+
+// change weapon attachment 
+void AHSPlayer::ChangeAttachment(bool IsBlacksmith)
+{
+	if (IsBlacksmith == true) // change to idle if in Blacksmith
+	{
+		Shield->AttachToComponent(ContainerShieldBack, FAttachmentTransformRules::SnapToTargetNotIncludingScale);
+		Weapon->AttachToComponent(ContainerWeaponBelt, FAttachmentTransformRules::SnapToTargetNotIncludingScale);
+	}
+	if (IsBlacksmith == false) // change to attack if in arena
+	{
+		Shield->AttachToComponent(ContainerShieldHand, FAttachmentTransformRules::SnapToTargetNotIncludingScale);
+		Weapon->AttachToComponent(ContainerWeaponHand, FAttachmentTransformRules::SnapToTargetNotIncludingScale);
+	}
 }
 
 // attack
