@@ -116,10 +116,12 @@ void AHSPlayer::Move(float LeftRight, float ForwardBack)
 	Capsule->AddWorldOffset(movement, true);
 
 	// calculate rotation to rotate to by input 
-	//FRotator rotation = UKismetMathLibrary::MakeRotFromXY(MovementDirection->GetForwardVector(), MovementDirection->GetRightVector());
-	
-	// try to add world rotation
-	//Mesh->AddWorldRotation(rotation,true);
+	if (movement.SizeSquared()>0.1f)
+	{
+		FRotator rotation = UKismetMathLibrary::MakeRotFromX(movement);
+		// try to add world rotation
+		Mesh->SetRelativeRotation(rotation);
+	}
 }
 
 // change weapon attachment 
