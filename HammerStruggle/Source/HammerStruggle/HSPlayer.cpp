@@ -115,11 +115,11 @@ void AHSPlayer::Move(float LeftRight, float ForwardBack)
 	// try to add world offset
 	Capsule->AddWorldOffset(Movement, true);
 
+	// rotate mesh 
 	if (Movement.SizeSquared()>0.1f)
-	// rotate mesh to movement direction when mesh direction unequal movement direction
 	{
-		FRotator rotation = UKismetMathLibrary::MakeRotFromX(Movement);
 		// calculate rotation to rotate to by input 
+		FRotator rotation = UKismetMathLibrary::MakeRotFromX(Movement);
 		// try to add relative rotation
 		Mesh->SetRelativeRotation(rotation);
 	}
