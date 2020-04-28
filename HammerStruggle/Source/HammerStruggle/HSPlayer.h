@@ -57,6 +57,12 @@ public:
 		/// </summary>
 		float MovementSpeed = 600.0f;
 
+	UPROPERTY(BlueprintReadWrite, EditDefaultsOnly, Category = "Player")
+		/// <summary>
+		/// currend movement speed in cm per second
+		/// </summary>
+		FVector Movement = FVector();
+
 	UPROPERTY(BlueprintReadWrite, VisibleDefaultsOnly, Category = "Player")
 		/// <summary>
 		/// capsule component for collision detection

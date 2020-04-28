@@ -109,16 +109,16 @@ void AHSPlayer::Rotate(float LeftRight)
 void AHSPlayer::Move(float LeftRight, float ForwardBack)
 {
 	// calculate movement to move to by input
-	FVector movement = MovementDirection->GetForwardVector() * MovementSpeed * ForwardBack * GetWorld()->GetDeltaSeconds();
-	movement += MovementDirection->GetRightVector() * MovementSpeed * LeftRight * GetWorld()->GetDeltaSeconds();
+	Movement = MovementDirection->GetForwardVector() * MovementSpeed * ForwardBack * GetWorld()->GetDeltaSeconds();
+	Movement += MovementDirection->GetRightVector() * MovementSpeed * LeftRight * GetWorld()->GetDeltaSeconds();
 
 	// try to add world offset
-	Capsule->AddWorldOffset(movement, true);
+	Capsule->AddWorldOffset(Movement, true);
 
 	// calculate rotation to rotate to by input 
-	if (movement.SizeSquared()>0.1f)
+	if (Movement.SizeSquared()>0.1f)
 	{
-		FRotator rotation = UKismetMathLibrary::MakeRotFromX(movement);
+		FRotator rotation = UKismetMathLibrary::MakeRotFromX(Movement);
 		// try to add world rotation
 		Mesh->SetRelativeRotation(rotation);
 	}
