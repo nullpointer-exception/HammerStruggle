@@ -83,49 +83,49 @@ public:
 
 	UPROPERTY(BlueprintReadWrite, VisibleAnywhere, Category = "Player")
 		/// <summary>
-		/// scene component for attchment
+		/// scene component for attachment
 		/// </summary>
 		USceneComponent* ContainerWeaponHand = nullptr;
 
 	UPROPERTY(BlueprintReadWrite, VisibleAnywhere, Category = "Player")
 		/// <summary>
-		/// scene component for attchment
+		/// scene component for attachment
 		/// </summary>
 		USceneComponent* ContainerWeaponBelt = nullptr;
 
 	UPROPERTY(BlueprintReadWrite, VisibleAnywhere, Category = "Player")
 		/// <summary>
-		/// scene component for attchment
+		/// scene component for attachment
 		/// </summary>
 		USceneComponent* ContainerShieldHand = nullptr;
 
 	UPROPERTY(BlueprintReadWrite, VisibleAnywhere, Category = "Player")
 		/// <summary>
-		/// scene component for attchment
+		/// scene component for attachment
 		/// </summary>
 		USceneComponent* ContainerShieldBack = nullptr;
 
 	UPROPERTY(BlueprintReadWrite, VisibleAnywhere, Category = "Player")
 		/// <summary>
-		/// static mesh for weapon
+		/// instanced static mesh for weapon
 		/// </summary>
 		UInstancedStaticMeshComponent* Weapon = nullptr;
 
 	UPROPERTY(BlueprintReadWrite, VisibleAnywhere, Category = "Player")
 		/// <summary>
-		/// static mesh for shield
+		/// instanced static mesh for shield
 		/// </summary>
 		UInstancedStaticMeshComponent* Shield = nullptr;
 
 	UPROPERTY(BlueprintReadWrite, VisibleDefaultsOnly, Category = "Player")
 		/// <summary>
-		/// camera root scene component for camera rotation
+		/// scene component for camera rotation
 		/// </summary>
 		USceneComponent* CameraRoot = nullptr;
 
 	UPROPERTY(BlueprintReadWrite, VisibleDefaultsOnly, Category = "Player")
 		/// <summary>
-		/// camera root scene component for fixed camera distance
+		/// spring arm component for fixed camera distance
 		/// </summary>
 		USpringArmComponent* CameraBoom = nullptr;
 
@@ -162,7 +162,7 @@ public:
 		/// <summary>
 		/// change weapon attachment
 		/// </summary>
-		/// <param name="IsBlacksmith">change if in blacksmith</param>
+		/// <param name="IsBlacksmith">change when in blacksmith</param>
 		void ChangeAttachment(bool IsBlacksmith);
 
 	UFUNCTION(BlueprintCallable, Category = "Player")
@@ -170,13 +170,6 @@ public:
 		/// attack
 		/// </summary>
 		void Attack();
-
-	//UFUNCTION(BlueprintCallable, Category = "Player")
-	//	/// <summary>
-	//	/// weapon collide
-	//	/// </summary>
-	//	/// <param name="OtherActor">other actor that collides with the weapon</param>
-	//	void Collide(AActor* OtherActor);
 
 	UFUNCTION(BlueprintCallable, Category = "Player")
 		/// <summary>

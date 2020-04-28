@@ -45,7 +45,7 @@ AHSPlayer::AHSPlayer()
 	ContainerWeaponBelt = CreateDefaultSubobject<USceneComponent>(TEXT("ContainerWeaponBelt"));
 	ContainerWeaponBelt->SetupAttachment(Mesh, "WeaponBack");
 
-	// create default instanced static mesh component and attach to mesh
+	// create default instanced static mesh component and attach to container weapon belt
 	Weapon = CreateDefaultSubobject<UInstancedStaticMeshComponent>(TEXT("WeaponInStanby"));
 	Weapon->SetupAttachment(ContainerWeaponBelt);
 
@@ -57,7 +57,7 @@ AHSPlayer::AHSPlayer()
 	ContainerShieldBack = CreateDefaultSubobject<USceneComponent>(TEXT("ContainerShieldBack"));
 	ContainerShieldBack->SetupAttachment(Mesh, "ShieldBack");
 
-	// create default instanced static mesh component and attach to mesh
+	// create default instanced static mesh component and attach to container shield back
 	Shield = CreateDefaultSubobject<UInstancedStaticMeshComponent>(TEXT("ShieldInStanby"));
 	Shield->SetupAttachment(ContainerShieldBack);
 
@@ -105,7 +105,7 @@ void AHSPlayer::Rotate(float LeftRight)
 	MovementDirection->AddWorldRotation(FRotator(0.0f, LeftRight * RotationSpeed * GetWorld()->GetDeltaSeconds(), 0.0f));
 }
 
-// move capsule
+// move capsule and rotate mesh
 void AHSPlayer::Move(float LeftRight, float ForwardBack)
 {
 	// calculate movement to move to by input
@@ -115,11 +115,12 @@ void AHSPlayer::Move(float LeftRight, float ForwardBack)
 	// try to add world offset
 	Capsule->AddWorldOffset(Movement, true);
 
-	// calculate rotation to rotate to by input 
 	if (Movement.SizeSquared()>0.1f)
+	// rotate mesh to movement direction when mesh direction unequal movement direction
 	{
 		FRotator rotation = UKismetMathLibrary::MakeRotFromX(Movement);
-		// try to add world rotation
+		// calculate rotation to rotate to by input 
+		// try to add relative rotation
 		Mesh->SetRelativeRotation(rotation);
 	}
 }
@@ -127,12 +128,12 @@ void AHSPlayer::Move(float LeftRight, float ForwardBack)
 // change weapon attachment 
 void AHSPlayer::ChangeAttachment(bool IsBlacksmith)
 {
-	if (IsBlacksmith == true) // change to idle if in Blacksmith
+	if (IsBlacksmith == true) // change to idle when in Blacksmith
 	{
 		Shield->AttachToComponent(ContainerShieldBack, FAttachmentTransformRules::SnapToTargetNotIncludingScale);
 		Weapon->AttachToComponent(ContainerWeaponBelt, FAttachmentTransformRules::SnapToTargetNotIncludingScale);
 	}
-	if (IsBlacksmith == false) // change to attack if in arena
+	if (IsBlacksmith == false) // change to fighting when in arena
 	{
 		Shield->AttachToComponent(ContainerShieldHand, FAttachmentTransformRules::SnapToTargetNotIncludingScale);
 		Weapon->AttachToComponent(ContainerWeaponHand, FAttachmentTransformRules::SnapToTargetNotIncludingScale);
