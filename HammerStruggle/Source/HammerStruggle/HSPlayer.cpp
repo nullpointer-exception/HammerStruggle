@@ -22,15 +22,15 @@ AHSPlayer::AHSPlayer()
 	// enable update every frame
 	PrimaryActorTick.bCanEverTick = true;
 
-	// create default skelatel mesh component and make root
-	Mesh = CreateDefaultSubobject<USkeletalMeshComponent>(TEXT("Mesh"));
-	RootComponent = Mesh;
-	Mesh->SetIsReplicated(true);
-
-	// create default capsule component and attach to mesh
+	// create default capsule component and make root
 	Capsule = CreateDefaultSubobject<UCapsuleComponent>(TEXT("Capsule"));
-	Capsule->SetupAttachment(Mesh);
+	RootComponent = Capsule;
 	Capsule->InitCapsuleSize(42.f, 68.0f);
+
+	// create default skelatel mesh component and attach to capsule
+	Mesh = CreateDefaultSubobject<USkeletalMeshComponent>(TEXT("Mesh"));
+	Mesh->SetupAttachment(Capsule);
+	Mesh->SetIsReplicated(true);
 
 	// don't rotate character to camera direction
 	bUseControllerRotationPitch = false;
@@ -113,16 +113,16 @@ void AHSPlayer::Move(float LeftRight, float ForwardBack)
 	Movement += MovementDirection->GetRightVector() * MovementSpeed * LeftRight * GetWorld()->GetDeltaSeconds();
 
 	// try to add world offset
-	Mesh->AddWorldOffset(Movement, true);
+	Capsule->AddWorldOffset(Movement, true);
 
 	// rotate mesh 
-	//if (Movement.SizeSquared()>0.1f)
-	//{
-	//	// calculate rotation to rotate to by input 
-	//	FRotator rotation = UKismetMathLibrary::MakeRotFromX(Movement);
-	//	// try to add relative rotation
-	//	Mesh->SetRelativeRotation(rotation);
-	//}
+	if (Movement.SizeSquared()>0.1f)
+	{
+		// calculate rotation to rotate to by input 
+		FRotator rotation = UKismetMathLibrary::MakeRotFromX(Movement);
+		// try to add relative rotation
+		Mesh->SetRelativeRotation(rotation);
+	}
 }
 
 // change weapon attachment 
@@ -138,6 +138,20 @@ void AHSPlayer::ChangeAttachment(bool IsBlacksmith)
 		Shield->AttachToComponent(ContainerShieldHand, FAttachmentTransformRules::SnapToTargetNotIncludingScale);
 		Weapon->AttachToComponent(ContainerWeaponHand, FAttachmentTransformRules::SnapToTargetNotIncludingScale);
 	}
+}
+
+// attack
+void AHSPlayer::Attack()
+{
+	// start melee animation
+	StartMelee();
+}
+
+// stop melee animation
+void AHSPlayer::StopMelee()
+{
+	// set melee hit false
+	m_meleeHit = false;
 }
 #pragma endregion
 
