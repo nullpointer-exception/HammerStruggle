@@ -5,6 +5,7 @@
 #pragma endregion
 
 #pragma region UE4 include
+#include "Engine.h"
 #include "Components/CapsuleComponent.h"
 #include "Components/SkeletalMeshComponent.h"
 #include "Components/SceneComponent.h"
@@ -108,15 +109,23 @@ void AHSPlayer::Rotate(float LeftRight)
 // move capsule and rotate mesh
 void AHSPlayer::Move(float LeftRight, float ForwardBack)
 {
+	//check if Input need to be normilzed
+	FVector Input = FVector(LeftRight, ForwardBack, 0.f);
+	if (Input.Size() > 1.f)
+		Input.Normalize();
+
 	// calculate movement to move to by input
-	Movement = MovementDirection->GetForwardVector() * MovementSpeed * ForwardBack * GetWorld()->GetDeltaSeconds();
-	Movement += MovementDirection->GetRightVector() * MovementSpeed * LeftRight * GetWorld()->GetDeltaSeconds();
+	Movement = MovementDirection->GetForwardVector() * Input.Y * GetWorld()->GetDeltaSeconds();
+	Movement += MovementDirection->GetRightVector() * Input.X * GetWorld()->GetDeltaSeconds();
+
+	//Add MovementSpeed
+	Movement = Movement * MovementSpeed;
 
 	// try to add world offset
 	Capsule->AddWorldOffset(Movement, true);
 
 	// rotate mesh 
-	if (Movement.SizeSquared()>0.1f)
+	if (Movement.SizeSquared() > 0.1f)
 	{
 		// calculate rotation to rotate to by input 
 		FRotator rotation = UKismetMathLibrary::MakeRotFromX(Movement);
@@ -138,20 +147,6 @@ void AHSPlayer::ChangeAttachment(bool IsBlacksmith)
 		Shield->AttachToComponent(ContainerShieldHand, FAttachmentTransformRules::SnapToTargetNotIncludingScale);
 		Weapon->AttachToComponent(ContainerWeaponHand, FAttachmentTransformRules::SnapToTargetNotIncludingScale);
 	}
-}
-
-// attack
-void AHSPlayer::Attack()
-{
-	// start melee animation
-	StartMelee();
-}
-
-// stop melee animation
-void AHSPlayer::StopMelee()
-{
-	// set melee hit false
-	m_meleeHit = false;
 }
 #pragma endregion
 
