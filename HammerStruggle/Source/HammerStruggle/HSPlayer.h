@@ -137,11 +137,6 @@ public:
 #pragma endregion
 
 #pragma region UFUNCTION
-	UFUNCTION(BlueprintImplementableEvent, Category = "Player")
-		/// <summary>
-		/// start melee attack animation
-		/// </summary>
-		void StartMelee();
 
 	UFUNCTION(BlueprintCallable, Category = "Player")
 		/// <summary>
@@ -165,17 +160,6 @@ public:
 		/// <param name="IsBlacksmith">change when in blacksmith</param>
 		void ChangeAttachment(bool IsBlacksmith);
 
-	UFUNCTION(BlueprintCallable, Category = "Player")
-		/// <summary>
-		/// attack
-		/// </summary>
-		void Attack();
-
-	UFUNCTION(BlueprintCallable, Category = "Player")
-		/// <summary>
-		/// stop melee animation
-		/// </summary>
-		void StopMelee();
 #pragma endregion
 
 protected:
@@ -184,13 +168,5 @@ protected:
 	/// called at begin play
 	/// </summary>
 	virtual void BeginPlay() override;
-#pragma endregion
-
-private:
-#pragma region private primitive variable
-	/// <summary>
-	/// melee attack hit an enemy
-	/// </summary>
-	bool m_meleeHit = false;
 #pragma endregion
 };
