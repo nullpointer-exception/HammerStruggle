@@ -109,20 +109,19 @@ void AHSPlayer::Rotate(float LeftRight)
 // move capsule and rotate mesh
 void AHSPlayer::Move(float LeftRight, float ForwardBack)
 {
-	//check if Input need to be normilzed
-	FVector Input = FVector(LeftRight, ForwardBack, 0.f);
-	if (Input.Size() > 1.f)
-		Input.Normalize();
 
 	// calculate movement to move to by input
-	Movement = MovementDirection->GetForwardVector() * Input.Y * GetWorld()->GetDeltaSeconds();
-	Movement += MovementDirection->GetRightVector() * Input.X * GetWorld()->GetDeltaSeconds();
+	Movement = MovementDirection->GetForwardVector() * ForwardBack;
+	Movement += MovementDirection->GetRightVector() * LeftRight;
+
+	//Normalize
+	Movement.Normalize();
 
 	//Add MovementSpeed
 	Movement = Movement * MovementSpeed;
 
 	// try to add world offset
-	Capsule->AddWorldOffset(Movement, true);
+	Capsule->AddWorldOffset(Movement * GetWorld()->GetDeltaSeconds(), true);
 
 	// rotate mesh 
 	if (Movement.SizeSquared() > 0.1f)
