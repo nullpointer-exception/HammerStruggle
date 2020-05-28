@@ -1,5 +1,5 @@
 // Fill out your copyright notice in the Description page of Project Settings.
-
+// Bea
 #pragma once
 
 #pragma region UE4 include
@@ -57,6 +57,7 @@ public:
 		/// </summary>
 		float MovementSpeed = 600.0f;
 
+		//Vladi
 	UPROPERTY(BlueprintReadWrite, EditDefaultsOnly, Category = "Player")
 		/// <summary>
 		/// currend movement speed in cm per second
