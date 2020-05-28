@@ -1,5 +1,5 @@
 // Copyright 1998-2019 Epic Games, Inc. All Rights Reserved.
-
+// Bea
 #include "HammerStruggleGameMode.h"
 #include "HSPlayer.h"
 #include "UObject/ConstructorHelpers.h"

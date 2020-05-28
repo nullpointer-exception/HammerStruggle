@@ -1,5 +1,5 @@
 // Copyright 1998-2019 Epic Games, Inc. All Rights Reserved.
-
+//Bea
 #include "HammerStruggle.h"
 #include "Modules/ModuleManager.h"
 

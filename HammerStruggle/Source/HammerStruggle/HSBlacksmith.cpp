@@ -1,5 +1,5 @@
 // Fill out your copyright notice in the Description page of Project Settings.
-
+// Bea
 #pragma region project include
 #include "HSBlacksmith.h"
 #include "HSPlayer.h"
@@ -40,8 +40,5 @@ void AHSBlacksmith::BeginPlay()
 {
 	// parent begin play
 	Super::BeginPlay();
-
-	//Room->OnComponentBeginOverlap.AddDynamic(this, &AHSPlayer::ChangeAttachment(true));
-	//Room->OnComponentEndOverlap.AddDynamic(this, &AHSPlayer::ChangeAttachment(false));
 }
 #pragma endregion
